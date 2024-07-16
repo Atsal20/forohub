@@ -1,20 +1,14 @@
 package com.Challenge.Forohub.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
+@Data
 public class LoginRequest {
-    @NotBlank
+
+    @NotBlank(message = "Username is required")
     private String username;
 
-    @NotBlank
+    @NotBlank(message = "Password is required")
     private String password;
-
-    public Object getUsername() {
-    }
-
-    public Object getPassword() {
-        return null;
-    }
-
-    // Getters and Setters
 }

@@ -1,10 +1,9 @@
 package com.Challenge.Forohub.service;
 
-
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -13,15 +12,33 @@ import java.util.Date;
 public class TokenService {
 
     @Value("${jwt.secret}")
-    private String jwtSecret;
+    private String secret;
 
     @Value("${jwt.expiration}")
-    private long jwtExpiration;
+    private Long expiration;
 
-    public String generateToken(Authentication authentication) {
-        return JWT.create()
-                .withSubject(authentication.getName())
-                .withExpiresAt(new Date(System.currentTimeMillis() + jwtExpiration))
-                .sign(Algorithm.HMAC256(jwtSecret));
+    public String generateToken(String username) {
+        return Jwts.builder()
+                .setSubject(username)
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(SignatureAlgorithm.HS512, secret)
+                .compact();
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public String getUsernameFromToken(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.getSubject();
     }
 }

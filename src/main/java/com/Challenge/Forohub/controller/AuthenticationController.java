@@ -34,9 +34,9 @@ public class AuthenticationController {
             );
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            return tokenService.generateToken(authentication);
+            return tokenService.generateToken(loginRequest.getUsername());
         } catch (AuthenticationException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid login credentials");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid login credentials", e);
         }
     }
 }

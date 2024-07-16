@@ -1,6 +1,5 @@
 package com.Challenge.Forohub.repository;
 
-
 import com.Challenge.Forohub.model.Topico;
 import org.springframework.data.jpa.repository.JpaRepository;
 

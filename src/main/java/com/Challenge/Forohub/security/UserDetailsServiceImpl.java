@@ -1,25 +1,37 @@
 package com.Challenge.Forohub.security;
 
-
-import com.example.forohub.model.Usuario;
-import com.example.forohub.repository.UsuarioRepository;
+import com.Challenge.Forohub.model.Usuario;
+import com.Challenge.Forohub.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+    private final UsuarioRepository usuarioRepository;
+
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    public UserDetailsServiceImpl(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        return new org.springframework.security.core.userdetails.User(usuario.getUsername(), usuario.getPassword(), new ArrayList<>());
+        Usuario usuario = usuarioRepository.findByUsername(username);
+
+        if (usuario == null) {
+            throw new UsernameNotFoundException(username);
+        }
+
+        return User.withUsername(usuario.getUsername())
+                .password(usuario.getPassword())
+                .authorities(new ArrayList<>())
+                .build();
     }
 }
-

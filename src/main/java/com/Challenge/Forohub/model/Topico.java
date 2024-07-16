@@ -40,4 +40,6 @@ public class Topico {
 
     @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Respuesta> respuestas;
+
+
 }

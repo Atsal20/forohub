@@ -15,15 +15,15 @@ public class Usuario {
     private Long id;
 
     @NotBlank
-    private String nombre;
+    private String username;
 
     @NotBlank
     @Email
     @Column(unique = true)
-    private String correoElectronico;
+    private String email;
 
     @NotBlank
-    private String contrasena;
+    private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -32,4 +32,6 @@ public class Usuario {
         inverseJoinColumns = @JoinColumn(name = "perfil_id")
     )
     private Set<Perfil> perfiles;
+
+
 }

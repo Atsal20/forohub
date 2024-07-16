@@ -2,6 +2,7 @@ package com.Challenge.Forohub.service;
 
 
 import com.Challenge.Forohub.dto.TopicoDTO;
+import com.Challenge.Forohub.model.Topico;
 import com.Challenge.Forohub.repository.TopicoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -62,7 +64,7 @@ public class TopicoService {
         topicoDTO.setFechaCreacion(topico.getFechaCreacion());
         topicoDTO.setStatus(topico.getStatus());
         topicoDTO.setAutor(topico.getAutor());
-        topicoDTO.setCurso(topico.getCurso().getNombre());
+        topicoDTO.setCurso(topico.getCurso());
         return topicoDTO;
     }
 

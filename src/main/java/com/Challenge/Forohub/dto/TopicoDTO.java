@@ -1,10 +1,15 @@
 package com.Challenge.Forohub.dto;
 
+import com.Challenge.Forohub.model.Curso;
+import com.Challenge.Forohub.model.Topico;
+import com.Challenge.Forohub.model.Usuario;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import java.time.LocalDateTime;
+import lombok.Data;
 
-public class TopicoDTO {
+import java.time.LocalDateTime;
+@Data
+public class TopicoDTO extends Topico {
     private Long id;
 
     @NotBlank(message = "El título no puede estar en blanco")
@@ -20,10 +25,9 @@ public class TopicoDTO {
     private String status;
 
     @NotBlank
-    private String autor;
+    private Usuario autor;
 
     @NotBlank
-    private String curso;
+    private Curso curso;
 
-    // Getters and Setters
 }

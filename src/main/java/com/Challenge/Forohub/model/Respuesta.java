@@ -22,7 +22,7 @@ public class Respuesta {
     private Topico topico;
 
     @CreationTimestamp
-    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaCreacion = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "autor_id", nullable = false)
