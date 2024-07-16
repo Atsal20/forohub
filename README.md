@@ -58,7 +58,7 @@ La seguridad de la aplicación está gestionada por Spring Security. Se utilizan
 
 ## Swagger UI
 
-La documentación de la API se genera automáticamente utilizando Swagger. Puedes acceder a la interfaz de usuario de Swagger en `http://localhost:8080/swagger-ui.html`.
+La documentación de la API se genera automáticamente utilizando Swagger. Puedes acceder a la interfaz de usuario de Swagger en `http://localhost:3000/swagger-ui.html`.
 
 ## Base de Datos
 
